@@ -1,5 +1,7 @@
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    Zaydan.vy = -100
+    if (Zaydan.isHittingTile(CollisionDirection.Bottom)) {
+        Zaydan.vy = -150
+    }
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     Zaydan.vx = -100
@@ -32,7 +34,7 @@ Zaydan = sprites.create(img`
     . . . . . b b . . b b . . . . . 
     . . . . . b b . . b b . . . . . 
     `, SpriteKind.Player)
-Zaydan.ay = 100
+Zaydan.ay = 400
 let KingDuck = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
