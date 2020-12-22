@@ -35,6 +35,8 @@ Zaydan = sprites.create(img`
     . . . . . b b . . b b . . . . . 
     `, SpriteKind.Player)
 Zaydan.ay = 400
+Zaydan.setPosition(12, 98)
+Zaydan.setFlag(SpriteFlag.StayInScreen, true)
 let KingDuck = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -53,7 +55,10 @@ let KingDuck = sprites.create(img`
     . . . . . 9 d d 9 . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Enemy)
-Zaydan.setFlag(SpriteFlag.StayInScreen, true)
+KingDuck.setPosition(133, 101)
+KingDuck.ay = 200
+KingDuck.vx = -100
+KingDuck.setFlag(SpriteFlag.StayInScreen, true)
 scene.setBackgroundColor(9)
 tiles.setTilemap(tiles.createTilemap(hex`0a0008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001010101010101010101`, img`
     . . . . . . . . . . 
@@ -65,3 +70,13 @@ tiles.setTilemap(tiles.createTilemap(hex`0a0008000000000000000000000000000000000
     . . . . . . . . . . 
     2 2 2 2 2 2 2 2 2 2 
     `, [myTiles.transparency16,sprites.builtin.forestTiles2], TileScale.Sixteen))
+forever(function () {
+    if (KingDuck.x < 10) {
+        KingDuck.vx = 100
+    } else if (KingDuck.x > scene.screenWidth() - 10) {
+        KingDuck.vx = -100
+    }
+    if (KingDuck.isHittingTile(CollisionDirection.Bottom)) {
+        KingDuck.vy = -120
+    }
+})
